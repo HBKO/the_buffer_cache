@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8771823C1F92425F004B023C /* DoublyLink.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8771823A1F92425F004B023C /* DoublyLink.cpp */; };
+		8783A9D51F91F240007ABCE9 /* buffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8783A9D31F91F240007ABCE9 /* buffer.cpp */; };
 		879B41811F907A310060AE5A /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 879B41801F907A310060AE5A /* main.cpp */; };
 /* End PBXBuildFile section */
 
@@ -23,8 +25,14 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		8771823A1F92425F004B023C /* DoublyLink.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DoublyLink.cpp; sourceTree = "<group>"; };
+		8771823B1F92425F004B023C /* DoublyLink.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = DoublyLink.hpp; sourceTree = "<group>"; };
+		8783A9D11F90B1E7007ABCE9 /* stcktp1.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = stcktp1.h; sourceTree = "<group>"; };
+		8783A9D31F91F240007ABCE9 /* buffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = buffer.cpp; sourceTree = "<group>"; };
+		8783A9D41F91F240007ABCE9 /* buffer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = buffer.hpp; sourceTree = "<group>"; };
 		879B417D1F907A310060AE5A /* the_bufer_cache */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = the_bufer_cache; sourceTree = BUILT_PRODUCTS_DIR; };
 		879B41801F907A310060AE5A /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		879B41881F907F650060AE5A /* stacktp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = stacktp.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +66,12 @@
 			isa = PBXGroup;
 			children = (
 				879B41801F907A310060AE5A /* main.cpp */,
+				879B41881F907F650060AE5A /* stacktp.h */,
+				8783A9D11F90B1E7007ABCE9 /* stcktp1.h */,
+				8783A9D31F91F240007ABCE9 /* buffer.cpp */,
+				8783A9D41F91F240007ABCE9 /* buffer.hpp */,
+				8771823A1F92425F004B023C /* DoublyLink.cpp */,
+				8771823B1F92425F004B023C /* DoublyLink.hpp */,
 			);
 			path = the_bufer_cache;
 			sourceTree = "<group>";
@@ -119,7 +133,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8771823C1F92425F004B023C /* DoublyLink.cpp in Sources */,
 				879B41811F907A310060AE5A /* main.cpp in Sources */,
+				8783A9D51F91F240007ABCE9 /* buffer.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -248,6 +264,7 @@
 				879B41861F907A310060AE5A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
