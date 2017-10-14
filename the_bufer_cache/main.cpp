@@ -14,8 +14,8 @@
 #include <cstdlib> // for rand(),srand()
 #include <ctime>    // for time()
 #include "stcktp1.h"
-#include "buffer.h"   //引入buffer头文件
-const int Num=10;
+#include "buffer.hpp"   //引入buffer头文件
+#include "DoublyLink.hpp"
 using std::cout;
 using std::cin;
 using std::string;
@@ -23,14 +23,35 @@ using std::endl;
 
 int main(int argc, const char * argv[]) {
     // insert code here...
-    string test_1="Hello World!";
-    CBuffer test(10,test_1);
+    CBuffer test(10,"the 10th CBuffer");
     CBuffer test_2(2);
-    cout<<"test's block: "<<test.getblock()<<" the test's status: "<<test.getstatus()<<endl;
-    cout<<"test_2's block: "<<test_2.getblock()<< " the test_2's status: "<<test_2.getstatus()<<endl;
-    cout<<"the test's data: "<<test.read()<<endl;
-    cout<<"the test_2's data: "<<test_2.read()<<endl;
-    test.write("the data is something\n");
-    cout<<"the test's data: "<<test.read()<<endl;
+    CBuffer test_3(3,"the third CBuffer");
+    CBuffer test_4(4,"the 4th CBuffer");
+    CBuffer test_5(4);
+    DoublyLink hash_queue;
+    cout<<hash_queue.deletebuffer(4)<<endl;
+    hash_queue.addbuffer(&test);
+    CBuffer *temp=hash_queue.getbuffer(10);
+    cout<<temp->read()<<endl;
+    cout<<hash_queue.deletebuffer(10)<<endl;
+    temp=hash_queue.getbuffer(10);
+    if(temp==NULL) cout<<"the temp is NULL."<<endl;
+    hash_queue.addbuffer(&test_2);
+    hash_queue.addbuffer(&test_3);
+    hash_queue.addbuffer(&test_4);
+    hash_queue.addbuffer(&test_5);
+    temp=hash_queue.getbuffer(2);
+    cout<<(temp->read())<<endl;
+    temp=hash_queue.getbuffer(3);
+    cout<<(temp->read())<<endl;
+    temp=hash_queue.getbuffer(4);
+    cout<<(temp->read())<<endl;
+    hash_queue.deletebuffer(3);
+    hash_queue.deletebuffer(2);
+    temp=hash_queue.getbuffer(4);
+    cout<<(temp->read())<<endl;
+    hash_queue.deletebuffer(4);
+    temp=hash_queue.getbuffer(4);
+    if(temp==NULL) cout<<"the temp is NULL."<<endl;
     return 0;
 }
