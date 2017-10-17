@@ -16,7 +16,7 @@
 
 class DoublyLink
 {
-private:
+protected:
     class CBuffer* header;    //队列头
     class CBuffer* tail;      //队列尾
 public:
