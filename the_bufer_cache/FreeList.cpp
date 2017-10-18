@@ -8,9 +8,14 @@
 
 #include "FreeList.hpp"
 #include <string>
+#include <atomic>
 using std::cout;
 using std::cin;
 using std::endl;
+std::atomic_flag free_lock = ATOMIC_FLAG_INIT;
+//因为引用了DoublyLink的头文件，对于全局变量来说，两个文件的全局变量不能相同，考虑把free_lock的全局变量变成成员变量，但是感觉还是有些问题
+//所以这边直接采用了两个atomic_flag的全局变量
+
 
 FreeList::FreeList():DoublyLink()
 {
@@ -29,8 +34,13 @@ CBuffer* FreeList::alloc()
 //添加结点，可以选择添加到尾巴还是添加到头部,1为添加到头部，0为添加到尾部,返回0说明添加错误，返回1说明添加正确
 int FreeList::addfreebuffer(CBuffer* buf, int isfirst)
 {
+    //为链表加上自旋锁，防止多线程环境下链表造成破坏
+    while(free_lock.test_and_set());
     if(buf==NULL)
+    {
+        free_lock.clear();
         return 0;
+    }
     if(header==NULL)
     {
         header=tail=buf;
@@ -50,8 +60,12 @@ int FreeList::addfreebuffer(CBuffer* buf, int isfirst)
             tail=buf;
         }
         else
+        {
+            free_lock.clear();
             return 0;
+        }
     }
+    free_lock.clear();
     return 1;
 }
 
@@ -59,7 +73,13 @@ int FreeList::addfreebuffer(CBuffer* buf, int isfirst)
 //提供删除结点的功能，因为这个链表控制的是freelist这个指针，所以不能继承，要重新设置，虽然删除结点的功能类型
 bool FreeList::removefreebuffer(CBuffer* q)
 {
-    if(q==NULL) return false;
+    //为链表加上自旋锁，防止多线程环境下链表造成破坏
+    while(free_lock.test_and_set());
+    if(q==NULL)
+    {
+        free_lock.clear();
+        return false;
+    }
     else
     {
         //只有一个结点的情况
@@ -92,6 +112,7 @@ bool FreeList::removefreebuffer(CBuffer* q)
             }
         }
     }
+    free_lock.clear();
     return true;
 
 }

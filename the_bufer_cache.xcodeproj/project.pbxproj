@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		872E8C5F1F94EA3F00E573F8 /* HashQueue,h.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 872E8C5D1F94EA3F00E573F8 /* HashQueue,h.cpp */; };
 		872E8C621F94FC0400E573F8 /* FreeList.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 872E8C601F94FC0400E573F8 /* FreeList.cpp */; };
+		872E8C651F95AD1600E573F8 /* BufferPool.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 872E8C631F95AD1600E573F8 /* BufferPool.cpp */; };
 		8771823C1F92425F004B023C /* DoublyLink.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8771823A1F92425F004B023C /* DoublyLink.cpp */; };
 		8783A9D51F91F240007ABCE9 /* buffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8783A9D31F91F240007ABCE9 /* buffer.cpp */; };
 		879B41811F907A310060AE5A /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 879B41801F907A310060AE5A /* main.cpp */; };
@@ -31,6 +32,8 @@
 		872E8C5E1F94EA3F00E573F8 /* HashQueue,h.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = "HashQueue,h.hpp"; sourceTree = "<group>"; };
 		872E8C601F94FC0400E573F8 /* FreeList.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FreeList.cpp; sourceTree = "<group>"; };
 		872E8C611F94FC0400E573F8 /* FreeList.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = FreeList.hpp; sourceTree = "<group>"; };
+		872E8C631F95AD1600E573F8 /* BufferPool.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BufferPool.cpp; sourceTree = "<group>"; };
+		872E8C641F95AD1600E573F8 /* BufferPool.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = BufferPool.hpp; sourceTree = "<group>"; };
 		8771823A1F92425F004B023C /* DoublyLink.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DoublyLink.cpp; sourceTree = "<group>"; };
 		8771823B1F92425F004B023C /* DoublyLink.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = DoublyLink.hpp; sourceTree = "<group>"; };
 		8783A9D11F90B1E7007ABCE9 /* stcktp1.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = stcktp1.h; sourceTree = "<group>"; };
@@ -82,6 +85,8 @@
 				872E8C5E1F94EA3F00E573F8 /* HashQueue,h.hpp */,
 				872E8C601F94FC0400E573F8 /* FreeList.cpp */,
 				872E8C611F94FC0400E573F8 /* FreeList.hpp */,
+				872E8C631F95AD1600E573F8 /* BufferPool.cpp */,
+				872E8C641F95AD1600E573F8 /* BufferPool.hpp */,
 			);
 			path = the_bufer_cache;
 			sourceTree = "<group>";
@@ -146,6 +151,7 @@
 				8771823C1F92425F004B023C /* DoublyLink.cpp in Sources */,
 				872E8C5F1F94EA3F00E573F8 /* HashQueue,h.cpp in Sources */,
 				872E8C621F94FC0400E573F8 /* FreeList.cpp in Sources */,
+				872E8C651F95AD1600E573F8 /* BufferPool.cpp in Sources */,
 				879B41811F907A310060AE5A /* main.cpp in Sources */,
 				8783A9D51F91F240007ABCE9 /* buffer.cpp in Sources */,
 			);
@@ -246,6 +252,14 @@
 		879B41851F907A310060AE5A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				HEADER_SEARCH_PATHS = /usr/local/include;
+				LIBRARY_SEARCH_PATHS = /usr/local/lib;
+				OTHER_LDFLAGS = (
+					"-l",
+					boost_system,
+					"-l",
+					boost_thread,
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -253,6 +267,14 @@
 		879B41861F907A310060AE5A /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				HEADER_SEARCH_PATHS = /usr/local/include;
+				LIBRARY_SEARCH_PATHS = /usr/local/lib;
+				OTHER_LDFLAGS = (
+					"-l",
+					boost_system,
+					"-l",
+					boost_thread,
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

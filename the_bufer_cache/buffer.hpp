@@ -10,7 +10,10 @@
 #define buffer_hpp
 
 
+
 #include<string>
+
+
 using std::string;
 #define BUSY 0
 #define FREE 1

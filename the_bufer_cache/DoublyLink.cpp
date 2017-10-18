@@ -6,20 +6,27 @@
 //  Copyright © 2017年 何柯文. All rights reserved.
 //
 
+
+
+
+//对于链表的操作支持原子操作，防止在多进程环境下对链表操作造成链表破坏
 #include "DoublyLink.hpp"
 #include <iostream>
-
+#include <atomic>
 
 
 using std::cin;
 using std::cout;
 using std::endl;
+std::atomic_flag lock = ATOMIC_FLAG_INIT;
+
 
 
 DoublyLink::DoublyLink()
 {
     header=NULL;
     tail=NULL;
+    lock.clear();
 }
 
 DoublyLink::DoublyLink(const int block)
@@ -32,14 +39,21 @@ DoublyLink::DoublyLink(const int block)
 
 class CBuffer*  DoublyLink::getbuffer(const int block) const
 {
+    //为链表加上自旋锁,在return 之前将锁归还
+ //   while(lock.test_and_set());
     //如果是一个空的双向链表进行处理
-    if(header==NULL) return NULL;
+    if(header==NULL)
+    {
+  //      lock.clear();
+        return NULL;
+    }
     class CBuffer* buffer=this->header;
     //遍历寻找结点
     while(buffer!=NULL)
     {
         if(buffer->getblock()==block)
         {
+  //          lock.clear();
             return buffer;
         }
         else
@@ -50,10 +64,12 @@ class CBuffer*  DoublyLink::getbuffer(const int block) const
     //到达最终结点，查看寻找的是否是尾巴结点
     if(buffer==tail && buffer->getblock()!=block)
     {
+//        lock.clear();
         return NULL;
     }
     else
     {
+//        lock.clear();
         return buffer;
     }
 }
@@ -64,16 +80,20 @@ class CBuffer*  DoublyLink::getbuffer(const int block) const
 //返回值为0，说明传入的空结点,添加结点直接添加在hash queue 尾巴
 int DoublyLink::addbuffer(class CBuffer *buf)
 {
+    //为链表加上自旋锁，防止多线程环境下链表造成破坏
+    while(lock.test_and_set());
     //传入的buf为空，返回0
     if(buf==NULL)
     {
         cout<<"the buf is NULL!"<<endl;
+        lock.clear();
         return 0;
     }
     //判断添加的结点是否存在
     if(getbuffer(buf->getblock())!=NULL)
     {
         cout<<"the buf is exist!"<<endl;
+        lock.clear();
         return -1;
     }
     if(header==NULL)
@@ -85,6 +105,7 @@ int DoublyLink::addbuffer(class CBuffer *buf)
     }
     //buf成为尾巴
     tail=buf;
+    lock.clear();
     return 1;
 }
 
@@ -102,7 +123,13 @@ bool DoublyLink::deletebuffer(const int block)
 //直接根据传入的结点直接删除，省去遍历链表的过程
 bool DoublyLink::deletebuffer(class CBuffer* q)
 {
-    if(q==NULL) return false;
+    //为链表加上自旋锁，防止多线程环境下链表造成破坏
+    while(lock.test_and_set());
+    if(q==NULL)
+    {
+        lock.clear();
+        return false;
+    }
     else
     {
         //只有一个结点的情况
@@ -135,6 +162,7 @@ bool DoublyLink::deletebuffer(class CBuffer* q)
             }
         }
     }
+    lock.clear();
     return true;
 }
 
