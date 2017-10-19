@@ -23,6 +23,7 @@
 #include "DoublyLink.hpp"
 #include "HashQueue,h.hpp"
 #include "FreeList.hpp"
+#include "BufferPool.hpp"
 using namespace std;
 
 
@@ -75,12 +76,10 @@ void thread02(int num)
     vector<CBuffer> res;
     for(int i=0;i<num;++i)
     {
-        string str="the"+int2str(i+num)+"th buffer in the thread01";
+        string str="the"+int2str(i+num)+"th buffer in the thread02";
         CBuffer test((i+num),str);
         res.push_back(test);
     }
-    
-    
     
     for(int i=0;i<num;++i)
     {
@@ -89,11 +88,11 @@ void thread02(int num)
         CBuffer* showbuffer=link_2.getbuffer(i+num);
         CBuffer* showbuffer_2=freelist.alloc();
         if(showbuffer!=NULL)
-            cout<<showbuffer->read()<<endl;
+            cout<<(showbuffer->read())<<endl;
         if(showbuffer_2!=NULL)
-            cout<<showbuffer_2->read()<<endl;
-            link_2.deletebuffer(showbuffer);
-            freelist.removefreebuffer(showbuffer_2);
+            cout<<(showbuffer_2->read())<<endl;
+        link_2.deletebuffer(showbuffer);
+        freelist.removefreebuffer(showbuffer_2);
     }
 }
 
@@ -107,5 +106,7 @@ int main(int argc, const char * argv[]) {
     thread t2(thread02,10);
     t1.join();
     t2.join();
+//    BufferPool pool(50);
+    
     return 0;
 }

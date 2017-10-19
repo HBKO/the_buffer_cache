@@ -11,6 +11,7 @@
 
 #define BUFFERHEAD -1
 #include<string>
+#include<mutex>
 #include"buffer.hpp"
 
 
@@ -19,6 +20,7 @@ class DoublyLink
 protected:
     class CBuffer* header;    //队列头
     class CBuffer* tail;      //队列尾
+    mutable std::mutex m;            //用来对链表的操作进行保护,加入mutable表示易变的，就不会出现未初始化的问题
 public:
     DoublyLink();         //带有模数的构造函数
     DoublyLink(const int block);    //模数和block数的构造函数

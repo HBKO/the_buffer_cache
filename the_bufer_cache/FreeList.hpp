@@ -16,7 +16,7 @@
 class FreeList:public DoublyLink
 {
 private:
-    
+    mutable std::mutex fm;
 public:
     FreeList();
     CBuffer* alloc();  //提供申请一个结点的功能，没有就返回NULL
