@@ -102,11 +102,12 @@ void thread02(int num)
 
 int main(int argc, const char * argv[]) {
     // insert code here...
-    thread t1(thread01,10);
-    thread t2(thread02,10);
-    t1.join();
-    t2.join();
+//    thread t1(thread01,10);
+//    thread t2(thread02,10);
+//    t1.join();
+//    t2.join();
 //    BufferPool pool(50);
+    BufferPool pool(30);
     
     return 0;
 }

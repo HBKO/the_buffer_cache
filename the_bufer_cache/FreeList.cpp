@@ -26,6 +26,7 @@ FreeList::FreeList():DoublyLink()
 //如果为空，则返回NULL,直接返回头结点就好，因为都是从头开始分配
 CBuffer* FreeList::alloc()
 {
+    std::lock_guard<std::mutex> l(fm); 
     return header;
 }
 

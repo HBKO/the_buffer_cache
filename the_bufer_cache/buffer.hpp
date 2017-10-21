@@ -38,6 +38,13 @@ public:
     CBuffer(const int block):block_num(block),status(FREE),data("empty"),
     hash_next(NULL),hash_prev(NULL),freelist_next(NULL),freelist_prev(NULL)
     {}                                           //只给予块号的构造函数
+    //不允许简单的赋值
+//    CBuffer(CBuffer const& other)
+//    {
+//    }
+//    CBuffer& operator=(const CBuffer&) = delete;  // 不允许简单的赋值
+
+    
     //简单的获取
     int getblock() const {return block_num;}
     void setblock(const int block) {block_num=block;}
@@ -47,13 +54,12 @@ public:
     void write(const string& str){data=str;}      //最初版的write
     ~CBuffer(){}                         //析构函数，将new出来的内存全都delete掉
     
-    
 public:                                 //可直接接触到的结点
     class CBuffer* hash_next;   //hash_queue的下一个
     class CBuffer* hash_prev;    //hash_queue的上一个
     class CBuffer* freelist_next;   //freelist的下一个
     class CBuffer* freelist_prev;   //freelist的上一个
-//    mutex* mux;                 //表示进程信号量
+    mutable mutex* mux;                 //表示进程信号量
 };
 
 
