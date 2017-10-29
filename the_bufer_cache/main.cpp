@@ -30,6 +30,7 @@ using namespace std;
 
 DoublyLink link_2;
 FreeList freelist;
+BufferPool pool(30);
 
 string int2str(const int &int_temp)
 {
@@ -99,15 +100,43 @@ void thread02(int num)
 
 
 
+class myfun
+{
+private:
+    int num;
+public:
+    myfun(int number):num(number){};
+    
+    void operator()()
+    {
+        vector<CBuffer*> res;
+        for(int i=0;i<num;++i)
+        {
+            CBuffer* test=pool.getblk(i);
+            res.push_back(test);
+        }
+        for(auto k:res)
+        {
+            string temp;
+            if(k->getstatus()==BUSY) temp="BUSY";
+            if(k->getstatus()==FREE) temp="FREE";
+            cout<<"the block number is:" <<k->getblock() << k->read() <<temp <<endl;
+        }
+    }
+};
+
+
+
+
+
+
 
 int main(int argc, const char * argv[]) {
     // insert code here...
-//    thread t1(thread01,10);
-//    thread t2(thread02,10);
-//    t1.join();
-//    t2.join();
-//    BufferPool pool(50);
-    BufferPool pool(30);
+    myfun func(10);
+    std::thread t1(func);
+    t1.join();
+    
     
     return 0;
 }

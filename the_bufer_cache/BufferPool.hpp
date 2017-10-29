@@ -14,6 +14,8 @@
 #include "HashQueue,h.hpp"
 #include "FreeList.hpp"
 #include <vector>
+#include <iostream>
+#include <sstream>
 
 
 class BufferPool
@@ -35,8 +37,8 @@ public:
     BufferPool(int block_num);
     bool Brelse(CBuffer* buf);      //释放一个buf的资源
     CBuffer* getblk(const int block);   //根据block号来申请对应的buffer
-    string bread(CBuffer* buf);         //将buf内的内容读取出来
-    void bwrite(CBuffer* buf);          //将buf内的内容写入
+    CBuffer* bread(const int block_number);         //将buf内的内容读取出来
+    void bwrite(CBuffer* buf,string str);          //将buf内的内容写入
     ~BufferPool();                     //析构函数，主要把申请的buffer全都释放掉
 };
 

@@ -38,10 +38,18 @@ public:
     CBuffer(const int block):block_num(block),status(FREE),data("empty"),
     hash_next(NULL),hash_prev(NULL),freelist_next(NULL),freelist_prev(NULL)
     {}                                           //只给予块号的构造函数
-    //不允许简单的赋值
-//    CBuffer(CBuffer const& other)
-//    {
-//    }
+    //不允许简单的赋值，含有mutex信号量的对象不允许简单赋值
+    CBuffer(CBuffer const& other)
+    {
+        std::lock_guard<std::mutex> lock(other.mux);
+        data=other.data;
+        block_num=other.block_num;
+        status=other.status;
+        hash_next=other.hash_next;
+        hash_prev=other.hash_prev;
+        freelist_next=other.freelist_next;
+        freelist_prev=other.freelist_prev;
+    }
 //    CBuffer& operator=(const CBuffer&) = delete;  // 不允许简单的赋值
 
     
@@ -59,7 +67,7 @@ public:                                 //可直接接触到的结点
     class CBuffer* hash_prev;    //hash_queue的上一个
     class CBuffer* freelist_next;   //freelist的下一个
     class CBuffer* freelist_prev;   //freelist的上一个
-    mutable mutex* mux;                 //表示进程信号量
+    mutable mutex mux;                 //表示进程信号量,加上mutable的目的是为了这个即使是一个常量对象也可以修改这个mux的锁，
 };
 
 
