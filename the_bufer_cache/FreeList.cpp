@@ -123,7 +123,7 @@ void FreeList::printallfreenode()
     CBuffer* head=header;
     while(head!=NULL)
     {
-        cout<<head->getblock()<<",\t";
+        cout<<head->getblock()<<" "<<status[head->getstatus()] <<", ";
         head=head->freelist_next;
     }
 }

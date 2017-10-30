@@ -31,6 +31,7 @@ using namespace std;
 DoublyLink link_2;
 FreeList freelist;
 BufferPool pool(30);
+vector<CBuffer* > bufblock;
 
 string int2str(const int &int_temp)
 {
@@ -116,6 +117,7 @@ public:
         {
             CBuffer* test=pool.bread(i);
             res.push_back(test);
+            cout<<"alloc the block is: "<<i<<endl;
             pool.bwrite(test);
         }
 /*
@@ -138,6 +140,7 @@ void thread03(int num)
     {
         CBuffer* test=pool.bread(i+30);
         res.push_back(test);
+        cout<<"alloc the block is: "<<i+30<<endl;
         pool.bwrite(test);
     }
 /*
@@ -158,6 +161,7 @@ void thread04(int num)
     {
         CBuffer* test=pool.bread(i+40);
         res.push_back(test);
+        cout<<"alloc the block is: "<<i+40<<endl;
         pool.bwrite(test);
     }
 /*
@@ -170,15 +174,23 @@ void thread04(int num)
 }
 
 
-//开第四个线程边申请边释放
+//开第四个线程申请
 void thread05(int num)
 {
-    vector<CBuffer *> res;
     for(int i=0;i<num;++i)
     {
-        CBuffer* test=pool.bread(i+10);
-        cout<<test->read()<<endl;
-        pool.bwrite(test);
+        CBuffer* test=pool.bread(i);
+        bufblock.push_back(test);
+    }
+}
+
+
+//开第五个线程进行释放，用来测试第五种情况
+void thread06()
+{
+    for(auto k:bufblock)
+    {
+        pool.bwrite(k);
     }
 }
 
@@ -193,16 +205,21 @@ void thread05(int num)
 
 int main(int argc, const char * argv[]) {
     // insert code here...
-    myfun func(10);
-    std::thread t1(func);
+    myfun func(29);
+    thread05(29);
+    pool.readcontext();
     std::thread t2(thread03,10);
     std::thread t3(thread04,10);
-    std::thread t4(thread05,9);
+    std::thread t1(func);
+//    std::thread t4(thread05,28);
     
-    t1.join();
     t2.join();
     t3.join();
+    
+    std::thread t4(thread06);
     t4.join();
+    t1.join();
+//    t4.join();
     
     pool.readcontext();
     

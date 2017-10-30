@@ -28,7 +28,7 @@ void HashQueue::printallhashnode()
     CBuffer* head=header;
     while(head!=NULL)
     {
-        std::cout<<head->getblock()<<",\t";
+        std::cout<<head->getblock()<<" "<< status[head->getstatus()] <<", ";
         head=head->hash_next;
     }
 }

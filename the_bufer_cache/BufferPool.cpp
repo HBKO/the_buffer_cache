@@ -49,9 +49,9 @@ BufferPool::~BufferPool()
 bool BufferPool::Brelse(CBuffer* buf)
 {
     buf->setstatus(FREE);
-    data_cond.notify_all();
     //将使用完的buffer添加到freelist的尾巴，实现LRU
     freelist->addfreebuffer(buf, 0);
+    data_cond.notify_all();
     return true;
 }
 
@@ -68,8 +68,9 @@ CBuffer* BufferPool::getblk(const int block)
         {
             if((buf->getstatus())==BUSY)        //情况五
             {
-                std::unique_lock<std::mutex> lk(buf->mux);    //使用unique_lock建立互斥锁,对应取的锁应该是buffer的锁
+                std::unique_lock<std::mutex> lk(mut);    //使用unique_lock建立互斥锁,对应取的锁应该是buffer的锁
                 data_cond.wait(lk,[&buf]{return buf->getstatus()==FREE;});    //对于lambdas函数表达式，要么将其设置成全局变量（全局函数），或者通过[]里面的值传入
+                lk.unlock();
                 continue;
             }
             buf->setstatus(BUSY);                //情况一
@@ -81,8 +82,9 @@ CBuffer* BufferPool::getblk(const int block)
             CBuffer* freebuf=freelist->alloc();
             if(freebuf==NULL)   //在freelist里面已经没有可以申请出来的块了，情况四
             {
-                std::unique_lock<std::mutex> bk(buf->mux);
+                std::unique_lock<std::mutex> bk(mut);
                 data_cond.wait(bk,[this]{return freelist->alloc()!=NULL;});   //对于想要在lambda表达式中传对象成员（函数或者变量，需要把this指针传进去）
+                bk.unlock();
                 continue;
             }
             freelist->removefreebuffer(freebuf);
@@ -122,6 +124,7 @@ CBuffer* BufferPool::bread(const int block_number)
     ss<<block_number;
     ss>>number;
     CBuffer* res=getblk(block_number);
+    res->setstatus(BUSY);
     res->write("the new block:  "+number);
     return res;
 }
@@ -138,7 +141,7 @@ void BufferPool::bwrite(CBuffer* buf)
     else
     {
         for(int i=0;i<99999;++i);
-        std::cout<<buf->read()<<std::endl;
+        std::cout<< "write " <<buf->read()<<std::endl;
         Brelse(buf);
     }
 }

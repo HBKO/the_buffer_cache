@@ -16,6 +16,12 @@
 #include"buffer.hpp"
 
 
+
+const std::string status[4]={"BUSY","FREE","DELAY_WRITE","INVALID"};                 //存储string数组的四种状态
+
+
+
+
 class DoublyLink
 {
 protected:

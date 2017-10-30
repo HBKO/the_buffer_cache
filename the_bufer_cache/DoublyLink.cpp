@@ -24,7 +24,6 @@ using std::endl;
 
 DoublyLink::DoublyLink()
 {
-    
     header=NULL;
     tail=NULL;
 }
