@@ -100,6 +100,8 @@ void thread02(int num)
 
 
 
+
+//开第一个线程，申请已经存在于hash_queue的buffer,不释放
 class myfun
 {
 private:
@@ -112,18 +114,76 @@ public:
         vector<CBuffer*> res;
         for(int i=0;i<num;++i)
         {
-            CBuffer* test=pool.getblk(i);
+            CBuffer* test=pool.bread(i);
             res.push_back(test);
+            pool.bwrite(test);
         }
+/*
         for(auto k:res)
         {
-            string temp;
-            if(k->getstatus()==BUSY) temp="BUSY";
-            if(k->getstatus()==FREE) temp="FREE";
-            cout<<"the block number is:" <<k->getblock() << k->read() <<temp <<endl;
+            cout<<k->read()<<endl;
+            pool.bwrite(k);
         }
+ */
     }
 };
+
+
+
+//开第二个线程一直申请hash_queue中没有的buffer，释放
+void thread03(int num)
+{
+    vector<CBuffer *> res;
+    for(int i=0;i<num;++i)
+    {
+        CBuffer* test=pool.bread(i+30);
+        res.push_back(test);
+        pool.bwrite(test);
+    }
+/*
+    for(auto k:res)
+    {
+        cout<<k->read()<<endl;
+        pool.bwrite(k);
+    }
+*/
+}
+
+
+//开第三个线程也一直申请hash_queue中没有的buffer
+void thread04(int num)
+{
+    vector<CBuffer *> res;
+    for(int i=0;i<num;++i)
+    {
+        CBuffer* test=pool.bread(i+40);
+        res.push_back(test);
+        pool.bwrite(test);
+    }
+/*
+    for(auto k:res)
+    {
+        cout<<k->read()<<endl;
+//        pool.bwrite(k);
+    }
+*/
+}
+
+
+//开第四个线程边申请边释放
+void thread05(int num)
+{
+    vector<CBuffer *> res;
+    for(int i=0;i<num;++i)
+    {
+        CBuffer* test=pool.bread(i+10);
+        cout<<test->read()<<endl;
+        pool.bwrite(test);
+    }
+}
+
+
+
 
 
 
@@ -135,8 +195,16 @@ int main(int argc, const char * argv[]) {
     // insert code here...
     myfun func(10);
     std::thread t1(func);
-    t1.join();
+    std::thread t2(thread03,10);
+    std::thread t3(thread04,10);
+    std::thread t4(thread05,9);
     
+    t1.join();
+    t2.join();
+    t3.join();
+    t4.join();
+    
+    pool.readcontext();
     
     return 0;
 }

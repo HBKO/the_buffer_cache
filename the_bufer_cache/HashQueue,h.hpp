@@ -18,6 +18,7 @@
 
 #include "DoublyLink.hpp"
 
+
 class HashQueue:public DoublyLink
 {
 private:
@@ -26,6 +27,7 @@ public:
     HashQueue(const int mode);  //默认构造函数
     HashQueue(const int block,const int mode); //知道块号的构造函数
     int getmod() const {return mod;} //获取块号
+    void printallhashnode();           //打印所有hashqueue的结点
 };
 
 

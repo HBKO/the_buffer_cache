@@ -20,3 +20,18 @@ HashQueue::HashQueue(const int block,const int mode):DoublyLink(block)
 }
 
 
+
+//打印hashqueue所有结点
+void HashQueue::printallhashnode()
+{
+    std::lock_guard<std::mutex> l(m);
+    CBuffer* head=header;
+    while(head!=NULL)
+    {
+        std::cout<<head->getblock()<<",\t";
+        head=head->hash_next;
+    }
+}
+
+
+

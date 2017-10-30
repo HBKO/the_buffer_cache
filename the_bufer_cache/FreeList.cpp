@@ -116,6 +116,20 @@ bool FreeList::removefreebuffer(CBuffer* q)
 }
 
 
+void FreeList::printallfreenode()
+{
+    
+    std::lock_guard<std::mutex> l(fm);
+    CBuffer* head=header;
+    while(head!=NULL)
+    {
+        cout<<head->getblock()<<",\t";
+        head=head->freelist_next;
+    }
+}
+
+
+
 //析构函数
 FreeList::~FreeList()
 {

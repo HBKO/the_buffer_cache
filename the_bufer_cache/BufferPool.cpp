@@ -86,9 +86,9 @@ CBuffer* BufferPool::getblk(const int block)
                 continue;
             }
             freelist->removefreebuffer(freebuf);
-            if(buf->getstatus()==DELAY_WRITE)   //情况三
+            if(freebuf->getstatus()==DELAY_WRITE)   //情况三
             {
-                bwrite(buf,"Delay_write");        //进行延迟写的操作
+                bwrite(buf);        //进行延迟写的操作
                 continue;
             }
             //情况二，找到了一个空闲的buffer
@@ -122,12 +122,12 @@ CBuffer* BufferPool::bread(const int block_number)
     ss<<block_number;
     ss>>number;
     CBuffer* res=getblk(block_number);
-    res->write("the new block"+number);
+    res->write("the new block:  "+number);
     return res;
 }
 
 //将buf内的内容写入
-void BufferPool::bwrite(CBuffer* buf,string str)
+void BufferPool::bwrite(CBuffer* buf)
 {
     //如果是延迟写，说明buf需要添加到链表头部
     if(buf->getstatus()==DELAY_WRITE)
@@ -138,9 +138,30 @@ void BufferPool::bwrite(CBuffer* buf,string str)
     else
     {
         for(int i=0;i<99999;++i);
-        buf->write(str);
+        std::cout<<buf->read()<<std::endl;
         Brelse(buf);
     }
+}
+
+
+//输出所有结点的块值，用于测试用
+void BufferPool::readcontext()
+{
+    HashQueue* h1=hashqueue_1;
+    HashQueue* h2=hashqueue_2;
+    HashQueue* h3=hashqueue_3;
+    HashQueue* h4=hashqueue_4;
+    std::vector<HashQueue* > res;
+    res.push_back(h1);res.push_back(h2);res.push_back(h3);res.push_back(h4);
+    for(auto k:res)
+    {
+        std::cout<<"the hash queue "<< (k->getmod())<<"is: ";
+        k->printallhashnode();
+        std::cout<<std::endl;
+    }
+    //将freelist的结点输出
+    std::cout<<"the freelist is: ";
+    freelist->printallfreenode();
 }
 
 

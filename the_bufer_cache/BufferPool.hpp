@@ -38,7 +38,8 @@ public:
     bool Brelse(CBuffer* buf);      //释放一个buf的资源
     CBuffer* getblk(const int block);   //根据block号来申请对应的buffer
     CBuffer* bread(const int block_number);         //将buf内的内容读取出来
-    void bwrite(CBuffer* buf,string str);          //将buf内的内容写入
+    void bwrite(CBuffer* buf);          //将buf内的内容写入
+    void readcontext();                 //用于测试用，输出所有节点的block值
     ~BufferPool();                     //析构函数，主要把申请的buffer全都释放掉
 };
 

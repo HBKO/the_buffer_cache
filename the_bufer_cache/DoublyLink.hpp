@@ -12,6 +12,7 @@
 #define BUFFERHEAD -1
 #include<string>
 #include<mutex>
+#include<iostream>
 #include"buffer.hpp"
 
 

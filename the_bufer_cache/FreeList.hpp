@@ -22,6 +22,7 @@ public:
     CBuffer* alloc();  //提供申请一个结点的功能，没有就返回NULL
     int addfreebuffer(CBuffer* buf,int isfirst); //提供从链表头添加还是从链表尾添加的功能
     bool removefreebuffer(CBuffer* q);  //提供删除结点的功能
+    void printallfreenode();            //打印所有空闲结点
     ~FreeList();
     
 };

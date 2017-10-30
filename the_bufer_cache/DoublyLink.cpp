@@ -158,6 +158,10 @@ bool DoublyLink::deletebuffer(class CBuffer* q)
     return true;
 }
 
+
+
+
+
 DoublyLink::~DoublyLink()
 {
     while(header!=NULL)
