@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		872E8C5F1F94EA3F00E573F8 /* HashQueue,h.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 872E8C5D1F94EA3F00E573F8 /* HashQueue,h.cpp */; };
 		872E8C621F94FC0400E573F8 /* FreeList.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 872E8C601F94FC0400E573F8 /* FreeList.cpp */; };
 		872E8C651F95AD1600E573F8 /* BufferPool.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 872E8C631F95AD1600E573F8 /* BufferPool.cpp */; };
+		876E10BB1FA86FFE00454C73 /* HashQueue.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 876E10BA1FA86FFE00454C73 /* HashQueue.cpp */; };
 		8771823C1F92425F004B023C /* DoublyLink.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8771823A1F92425F004B023C /* DoublyLink.cpp */; };
 		8783A9D51F91F240007ABCE9 /* buffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8783A9D31F91F240007ABCE9 /* buffer.cpp */; };
 		879B41811F907A310060AE5A /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 879B41801F907A310060AE5A /* main.cpp */; };
@@ -28,12 +28,12 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		872E8C5D1F94EA3F00E573F8 /* HashQueue,h.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "HashQueue,h.cpp"; sourceTree = "<group>"; };
-		872E8C5E1F94EA3F00E573F8 /* HashQueue,h.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = "HashQueue,h.hpp"; sourceTree = "<group>"; };
 		872E8C601F94FC0400E573F8 /* FreeList.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FreeList.cpp; sourceTree = "<group>"; };
 		872E8C611F94FC0400E573F8 /* FreeList.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = FreeList.hpp; sourceTree = "<group>"; };
 		872E8C631F95AD1600E573F8 /* BufferPool.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BufferPool.cpp; sourceTree = "<group>"; };
 		872E8C641F95AD1600E573F8 /* BufferPool.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = BufferPool.hpp; sourceTree = "<group>"; };
+		876E10B91FA86FF700454C73 /* HashQueue.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = HashQueue.hpp; sourceTree = "<group>"; };
+		876E10BA1FA86FFE00454C73 /* HashQueue.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = HashQueue.cpp; sourceTree = "<group>"; };
 		8771823A1F92425F004B023C /* DoublyLink.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DoublyLink.cpp; sourceTree = "<group>"; };
 		8771823B1F92425F004B023C /* DoublyLink.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = DoublyLink.hpp; sourceTree = "<group>"; };
 		8783A9D11F90B1E7007ABCE9 /* stcktp1.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = stcktp1.h; sourceTree = "<group>"; };
@@ -79,10 +79,10 @@
 				8783A9D11F90B1E7007ABCE9 /* stcktp1.h */,
 				8783A9D31F91F240007ABCE9 /* buffer.cpp */,
 				8783A9D41F91F240007ABCE9 /* buffer.hpp */,
+				876E10B91FA86FF700454C73 /* HashQueue.hpp */,
+				876E10BA1FA86FFE00454C73 /* HashQueue.cpp */,
 				8771823A1F92425F004B023C /* DoublyLink.cpp */,
 				8771823B1F92425F004B023C /* DoublyLink.hpp */,
-				872E8C5D1F94EA3F00E573F8 /* HashQueue,h.cpp */,
-				872E8C5E1F94EA3F00E573F8 /* HashQueue,h.hpp */,
 				872E8C601F94FC0400E573F8 /* FreeList.cpp */,
 				872E8C611F94FC0400E573F8 /* FreeList.hpp */,
 				872E8C631F95AD1600E573F8 /* BufferPool.cpp */,
@@ -149,9 +149,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				8771823C1F92425F004B023C /* DoublyLink.cpp in Sources */,
-				872E8C5F1F94EA3F00E573F8 /* HashQueue,h.cpp in Sources */,
 				872E8C621F94FC0400E573F8 /* FreeList.cpp in Sources */,
 				872E8C651F95AD1600E573F8 /* BufferPool.cpp in Sources */,
+				876E10BB1FA86FFE00454C73 /* HashQueue.cpp in Sources */,
 				879B41811F907A310060AE5A /* main.cpp in Sources */,
 				8783A9D51F91F240007ABCE9 /* buffer.cpp in Sources */,
 			);

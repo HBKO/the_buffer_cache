@@ -6,7 +6,7 @@
 //  Copyright © 2017年 何柯文. All rights reserved.
 //
 
-#include "HashQueue,h.hpp"
+#include "HashQueue.hpp"
 
 
 HashQueue::HashQueue(const int mode):DoublyLink()
@@ -32,6 +32,9 @@ void HashQueue::printallhashnode()
         head=head->hash_next;
     }
 }
+
+
+
 
 
 

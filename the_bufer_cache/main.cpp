@@ -21,7 +21,7 @@
 #include "stcktp1.h"
 #include "buffer.hpp"   //引入buffer头文件
 #include "DoublyLink.hpp"
-#include "HashQueue,h.hpp"
+#include "HashQueue.hpp"
 #include "FreeList.hpp"
 #include "BufferPool.hpp"
 using namespace std;
